@@ -1,5 +1,5 @@
-# CAL1718-T6GD
-Concepção e Análise de Algoritmos 2018, first project .
+﻿# CAL1718-T6GD
+Concepção e Análise de Algoritmos 2018, first project and second project .
 
 Tema 6: Supermercado ao domicílio
 Uma rede de supermercados deseja inovar e passa a permitir que os seus clientes realizem as suas compras de supermercado pela Internet, sendo depois as mesmas entregues no domicílio do cliente. Para rentabilizar o serviço, o supermercado tenta agrupar o maior número de compras numa única viagem, distribuindo as compras para os clientes nas suas respectivas moradas. 
