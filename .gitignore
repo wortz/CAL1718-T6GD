@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+/.metadata/
+RemoteSystemsTempFiles/.project
+*.prefs
+*.xml
