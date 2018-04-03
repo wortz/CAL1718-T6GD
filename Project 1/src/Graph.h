@@ -32,6 +32,7 @@ class Vertex {
 	bool visited;          // auxiliary field used by dfs and bfs
 	bool processing;       // auxiliary field used by isDAG
 	int indegree;          // auxiliary field used by topsort
+	double dist;
 
 	void addEdge(Vertex<T> *d, double w);
 	bool removeEdgeTo(Vertex<T> *d);
@@ -48,6 +49,7 @@ template <class T>
 Vertex<T>::Vertex(T in,double lon,double lat): info(in)  {
 	this->lat=lat;
 	this->lon=lon;
+	this->dist=INF;
 	this->visited=false;
 	this->processing=false;
 	this->indegree=0;

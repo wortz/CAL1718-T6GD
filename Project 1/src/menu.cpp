@@ -1,5 +1,6 @@
 #include "Graph.h"
 #include "Road.h"
+#include "Supermarket.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -12,6 +13,8 @@ using namespace std;
 //Global variables
 Graph<int> * graph;
 vector<Road *> roads;
+vector<Supermarket *> supermarkets;
+vector<Client *> clients;
 
 //functions declarations
 void readFiles();
@@ -97,14 +100,14 @@ void readConectionsFile() {
 			Vertex<int> * source = graph->findVertex(src);
 			Vertex<int> * dest = graph->findVertex(dst);
 			if (source == NULL || dest == NULL) {
-				cout << "\nError the files nodes and roadCon do not match.";
+				cout << "\nError the files nodes.txt and roadCon.txt do not match.";
 				return;
 			}
 			dist = calculateDist(source->getLat(), dest->getLat(),
 					source->getLon(), dest->getLon());
 			auto v=getRoad(n);
 			if(v==NULL){
-				cout << "\nError the files roadDir and roadCon do not match.";
+				cout << "\nError the files roadDir.txt and roadCon.txt do not match.";
 				return;
 			}
 			graph->addEdge(src, dst, dist,v->isOneway());
@@ -113,6 +116,50 @@ void readConectionsFile() {
 		cout << "   Done!\n";
 	} else
 		cout << "\nUnable to open roadCon.txt file";
+}
+
+void readSupermarketsFile()
+{
+	cout << "Trying to read supermarkets.txt File ..........";
+	ifstream file;
+	string line;
+	int nodeId;
+	file.open("supermarkets.txt");
+	if(file.is_open()){
+		while(getline(file,line)){
+			stringstream ss(line);
+			ss << nodeId;
+			if(graph->findVertex(nodeId))
+				supermarkets.push_back(new Supermarket(graph->findVertex(nodeId)));
+			else {
+				cout << "\nError the files supermarkets.txt and nodes.txt do not match.";
+			}
+		}
+	}else
+		cout << "\nUnable to open supermarkets.txt file";
+}
+
+void readClientsFile()
+{
+	cout << "Trying to read clients.txt File ..........";
+	ifstream file;
+	string line;
+	int nodeId;
+	file.open("clients.txt");
+	if(file.is_open()){
+		while(getline(file,line)){
+			stringstream ss(line);
+			ss << nodeId;
+			if(graph->findVertex(nodeId)){
+				clients.push_back(new Client(graph->findVertex(nodeId)));
+
+			}
+			else{
+				cout << "\nError the files clients.txt and nodes.txt do not match.";
+			}
+		}
+	}else
+		cout << "\nUnable to open clients.txt file";
 }
 
 double deg2rad(double deg) {
