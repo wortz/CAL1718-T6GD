@@ -34,3 +34,8 @@
 RemoteSystemsTempFiles/.project
 *.prefs
 *.xml
+*.db
+*.opendb
+*.json
+*.ipch
+*.sqlite
