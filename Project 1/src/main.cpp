@@ -3,9 +3,8 @@
 
 using namespace std;
 
-HomeDeliveryCompany *company;
+HomeDeliveryCompany  * company;
 
 int main(){
-	cout<<"yooo";
-	company = new HomeDeliveryCompany();
+	company=new HomeDeliveryCompany();
 }

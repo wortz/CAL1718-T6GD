@@ -8,8 +8,8 @@
 #define earthRadius (6371.0*1000.0)
 
 HomeDeliveryCompany::HomeDeliveryCompany(){
+	graph = new Graph<int>();
 	readFiles();
-
 }
 void HomeDeliveryCompany::readFiles() {
 	readNodesFile();
