@@ -1,6 +1,4 @@
-#include "Graph.h"
-#include "Road.h"
-#include "Supermarket.h"
+#include "HomeDeliveryCompany.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -9,19 +7,17 @@
 #define PI 3.14159265
 #define earthRadius (6371.0*1000.0)
 
-using namespace std;
+HomeDeliveryCompany::HomeDeliveryCompany(){
+	readFiles();
 
-files() {
-		graph = new Graph<int>();
 }
-
-void readFiles() {
+void HomeDeliveryCompany::readFiles() {
 	readNodesFile();
 	readDirectionFile();
 	readConectionsFile();
 }
 
-void readNodesFile() {
+void HomeDeliveryCompany::readNodesFile() {
 	cout << "Trying to read nodes.txt File ..........";
 	ifstream file;
 	string line;
@@ -41,7 +37,7 @@ void readNodesFile() {
 		cout << "\nUnable to open nodes.txt file";
 }
 
-void readDirectionFile() {
+void HomeDeliveryCompany::readDirectionFile() {
 	cout << "Trying to read roadDir.txt File ..........";
 	ifstream file;
 	string line, data, name;
@@ -66,7 +62,7 @@ void readDirectionFile() {
 		cout << "\nUnable to open roadCon.txt file";
 }
 
-void readConectionsFile() {
+void HomeDeliveryCompany::readConectionsFile() {
 	cout << "Trying to read roadCon.txt File ..........";
 	ifstream file;
 	string line;
@@ -86,8 +82,7 @@ void readConectionsFile() {
 				cout << "\nError the files nodes.txt and roadCon.txt do not match.";
 				return;
 			}
-			dist = calculateDist(source->getLat(), dest->getLat(),
-					source->getLon(), dest->getLon());
+			dist = calculateDist(source->getLat(), dest->getLat(),source->getLon(), dest->getLon());
 			auto v=getRoad(n);
 			if(v==NULL){
 				cout << "\nError the files roadDir.txt and roadCon.txt do not match.";
@@ -101,7 +96,7 @@ void readConectionsFile() {
 		cout << "\nUnable to open roadCon.txt file";
 }
 
-void readSupermarketsFile()
+void HomeDeliveryCompany::readSupermarketsFile()
 {
 	cout << "Trying to read supermarkets.txt File ..........";
 	ifstream file;
@@ -122,7 +117,7 @@ void readSupermarketsFile()
 		cout << "\nUnable to open supermarkets.txt file";
 }
 
-void readClientsFile()
+void HomeDeliveryCompany::readClientsFile()
 {
 	cout << "Trying to read clients.txt File ..........";
 	ifstream file;
@@ -145,11 +140,11 @@ void readClientsFile()
 		cout << "\nUnable to open clients.txt file";
 }
 
-double deg2rad(double deg) {
+double HomeDeliveryCompany::deg2rad(double deg) {
 	return (deg * PI / 180);
 }
 
-Road * getRoad(int id){
+Road * HomeDeliveryCompany::getRoad(int id){
 	for(auto r:roads){
 		if(r->getId()==id)
 			return r;
@@ -159,7 +154,7 @@ Road * getRoad(int id){
 
 
 
-double calculateDist(double lat1, double lat2, double lon1, double lon2) {
+double HomeDeliveryCompany::calculateDist(double lat1, double lat2, double lon1, double lon2) {
 	  double dlat,dlon, latsin, lonsin,result;
 	  dlat=deg2rad(lat2-lat1);
 	  dlon=deg2rad(lon2-lon1);
@@ -168,3 +163,8 @@ double calculateDist(double lat1, double lat2, double lon1, double lon2) {
 	  result = asin(sqrt(latsin * latsin + cos(deg2rad(lat1)) * cos(deg2rad(lat2)) * lonsin * lonsin));
 	  return 2.0 * earthRadius * result;
 	}
+
+
+
+
+
