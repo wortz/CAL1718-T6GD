@@ -14,3 +14,8 @@ Supermarket::Supermarket(Vertex<int>* node){
 }
 
 
+void Supermarket::addClient(Client * client){
+	clients.push_back(client);
+}
+
+

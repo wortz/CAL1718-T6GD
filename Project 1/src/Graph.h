@@ -31,14 +31,19 @@ class Vertex {
 	vector<Edge<T> > adj;  // list of outgoing edges
 	bool visited;          // auxiliary field used by dfs and bfs
 	bool processing;       // auxiliary field used by isDAG
+	int queueIndex = 0; 	// required by MutablePriorityQueue
 	int indegree;          // auxiliary field used by topsort
 	double dist;
+	Vertex<T> *path = NULL;
 
 	void addEdge(Vertex<T> *d, double w);
 	bool removeEdgeTo(Vertex<T> *d);
 public:
+	T getInfo();
+	bool operator<(Vertex<T> & vertex) const; // // required by MutablePriorityQueue
 	double getLon();
 	double getLat();
+	double getDist();
 	Vertex(T in,double lat,double lon);
 	friend class Graph<T>;
 	friend class MutablePriorityQueue<Vertex<T>>;
@@ -55,6 +60,16 @@ Vertex<T>::Vertex(T in,double lon,double lat): info(in)  {
 	this->indegree=0;
 }
 
+template <class T>
+bool Vertex<T>::operator<(Vertex<T> & vertex) const {
+	return this->dist < vertex.dist;
+}
+
+template <class T>
+T Vertex<T>::getInfo(){
+	return info;
+}
+
 /*
  *  Returns the vertex lat
  */
@@ -69,6 +84,11 @@ double Vertex<T>::getLat(){
 template <class T>
 double Vertex<T>::getLon(){
 	return this->lon;
+}
+
+template <class T>
+double Vertex<T>::getDist(){
+	return this->dist;
 }
 
 /*

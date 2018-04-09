@@ -13,6 +13,8 @@ class Client {
 	Vertex<int> * node;
 public:
 	Client(Vertex<int>* node);
+	int getNodeId();
+	Vertex<int>* getVertex();
 };
 
 

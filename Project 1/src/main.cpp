@@ -1,10 +1,8 @@
 #include<iostream>
-#include "HomeDeliveryCompany.h"
+#include "files.h"
 
 using namespace std;
 
-HomeDeliveryCompany  * company;
-
 int main(){
-	company=new HomeDeliveryCompany();
+	readFiles();
 }

@@ -20,15 +20,14 @@ class HomeDeliveryCompany {
 
   public:
   HomeDeliveryCompany();
-  void readFiles();
-  double calculateDist(double lat1, double lat2, double lon1, double lon2);
-  double deg2rad(double deg);
-  void readNodesFile();
-  void readDirectionFile();
-  void readConectionsFile();
-  void readSupermarketsFile();
-  void readClientsFile();
+  void findVertex();
+  void setGraph(Graph<int> * graph);
+  void addClient(Client * c);
+  void addRoad(Road* r);
+  void addSupermarket(Supermarket* s);
+  void addClientToSupermarket(Client * c);
   Road * getRoad(int id);
+
 };
 
 #endif /* HOMEDELIVERYCOMPANY_H_ */

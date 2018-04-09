@@ -12,3 +12,11 @@ using namespace std;
 Client::Client(Vertex<int> * node){
 	this->node=node;
 }
+
+int Client::getNodeId(){
+	return node->getInfo();
+}
+
+Vertex<int>* Client::getVertex(){
+	return node;
+}
