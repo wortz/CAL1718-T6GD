@@ -6,27 +6,35 @@
 #include "Road.h"
 #include "Supermarket.h"
 #include <iostream>
-#include <sstream>
-#include <fstream>
-#include <math.h>
+#include "graphviewer.h"
 
-using namespace std;
+
 
 class HomeDeliveryCompany {
-  Graph<int> * graph;
+  Graph * graph;
   vector<Road *> roads;
   vector<Supermarket *> supermarkets;
   vector<Client *> clients;
 
+
+  void reworkOrganization();
+  bool addClientToSupermarket(Client * c);
   public:
+  bool isAvailable(Vertex * v);
   HomeDeliveryCompany();
-  void findVertex();
-  void setGraph(Graph<int> * graph);
-  void addClient(Client * c);
+  void setGraph(Graph * graph);
+  bool addClient(Client * c);
   void addRoad(Road* r);
   void addSupermarket(Supermarket* s);
-  void addClientToSupermarket(Client * c);
+  void coutNodesAvailable();
   Road * getRoad(int id);
+  Graph * getGraph();
+  bool removeClient(int nodeId);
+  bool removeSupermarket(Supermarket * s);
+  void coutClients();
+  void coutSupermarkets();
+  void showPath(int id);
+
 
 };
 

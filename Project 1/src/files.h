@@ -8,17 +8,16 @@
 #ifndef FILES_H_
 #define FILES_H_
 
-#define PI 3.14159265
-#define earthRadius (6371.0*1000.0)
-
 #include "HomeDeliveryCompany.h"
 #include <iostream>
+#include <sstream>
+#include <fstream>
 
+#include "Utility.h"
 
+extern HomeDeliveryCompany * company;
 
 void readFiles();
-double calculateDist(double lat1, double lat2, double lon1, double lon2);
-double deg2rad(double deg);
 void readNodesFile();
 void readDirectionFile();
 void readConectionsFile();

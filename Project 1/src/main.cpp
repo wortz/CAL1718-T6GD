@@ -1,8 +1,8 @@
-#include<iostream>
-#include "files.h"
+#include "menu.h"
 
-using namespace std;
 
 int main(){
-	readFiles();
+	inicateApp();
 }
+
+

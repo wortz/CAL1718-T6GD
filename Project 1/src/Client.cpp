@@ -9,14 +9,28 @@
 
 using namespace std;
 
-Client::Client(Vertex<int> * node){
+Client::Client(Vertex * node,string name){
 	this->node=node;
+	this->name=name;
+	this->visited=false;
 }
 
 int Client::getNodeId(){
 	return node->getInfo();
 }
 
-Vertex<int>* Client::getVertex(){
+bool Client::isVisited(){
+	return visited;
+}
+
+string Client::getName(){
+	return name;
+}
+
+Vertex* Client::getVertex(){
 	return node;
+}
+
+void Client::setVisited(bool visited){
+	this->visited=visited;
 }

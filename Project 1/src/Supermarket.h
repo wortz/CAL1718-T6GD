@@ -10,14 +10,20 @@
 #include "Graph.h"
 #include "Client.h"
 
-using namespace std;
 
 class Supermarket {
-	Vertex<int> * node;
+	Vertex * node;
 	vector<Client *> clients;
+	int id;
 public:
-	Supermarket(Vertex<int>* node);
+	Supermarket(Vertex* node);
+	void setId(int id);
 	void addClient(Client * client);
+	Vertex * getNode();
+	int getId();
+	bool removeClient(Client * c);
+	int closestClient();
+	int getNrClients();
 };
 
 

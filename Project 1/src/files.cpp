@@ -10,7 +10,7 @@
 using namespace std;
 
 HomeDeliveryCompany * company=new HomeDeliveryCompany();
-Graph<int> * graph=new Graph<int>();
+Graph * graph=new Graph();
 
 void readFiles() {
 	company->setGraph(graph);
@@ -27,12 +27,12 @@ void readNodesFile() {
 	string line;
 	int n;
 	double lat, lon;
-	char crab;
+	char crap;
 	file.open("nodes.txt");
 	if (file.is_open()) {
 		while (getline(file, line)) {
 			stringstream ss(line);
-			ss >> n >> crab >> lat >> crab >> lon >> crab;
+			ss >> n >> crap >> lat >> crap >> lon >> crap;
 			graph->addVertex(n, lat, lon);
 		}
 		file.close();
@@ -47,16 +47,16 @@ void readDirectionFile() {
 	string line, data, name;
 	int n;
 	bool oneway;
-	char crab = ';';
+	char crap = ';';
 	file.open("roadDir.txt");
 	if (file.is_open()) {
 		while (getline(file, line)) {
 			stringstream ss(line);
 			ss >> n;
-			getline(ss, data, crab);
-			getline(ss, data, crab);
+			getline(ss, data, crap);
+			getline(ss, data, crap);
 			name = data;
-			getline(ss, data, crab);
+			getline(ss, data, crap);
 			oneway = (data == "False") ? false : true;
 			company->addRoad(new Road(n, name, oneway));
 		}
@@ -73,15 +73,15 @@ void readConectionsFile() {
 	int n;
 	int src, dst;
 	double dist;
-	char crab;
+	char crap;
 	file.open("roadCon.txt");
 	if (file.is_open()) {
 		while (getline(file, line)) {
 			stringstream ss(line);
 			//read from roadCon.txt,variables n , crab,src,ds,source,dest,dist
-			ss >> n >> crab >> src >> crab >> dst >> crab;
-			Vertex<int> * source = graph->findVertex(src);
-			Vertex<int> * dest = graph->findVertex(dst);
+			ss >> n >> crap >> src >> crap >> dst >> crap;
+			Vertex * source = graph->findVertex(src);
+			Vertex * dest = graph->findVertex(dst);
 			if (source == NULL || dest == NULL) {
 				cout << "\nError the files nodes.txt and roadCon.txt do not match.";
 				return;
@@ -130,45 +130,36 @@ void readClientsFile()
 {
 	cout << "Trying to read clients.txt File ..........";
 	ifstream file;
-	string line;
+	string line, data, name;
 	int nodeId;
-	char crap;
+	char crap = ';';
 	file.open("clients.txt");
 	if(file.is_open()){
 		while(getline(file,line)){
 			stringstream ss(line);
-			ss >> nodeId >> crap;
+			ss >> nodeId;
+			getline(ss, data, crap);
+			getline(ss, data, crap);
+			name=data;
 			auto v=graph->findVertex(nodeId);
 			if(v!=NULL){
-				company->addClient(new Client(v));
-
+				if(!company->addClient(new Client(v,name))){
+					cout << "\nThe company has no path to reach client: " << name
+									<< " located on node: " << nodeId << "\nThat client will not be added.";
+				}
 			}
 			else{
 				cout << "\nError the files clients.txt and nodes.txt do not match.";
 			}
 		}
 		file.close();
-		cout << "        Done!\n";
+		cout << "        \nDone!\n";
 	}else
 		cout << "\nUnable to open clients.txt file.";
 }
 
-double deg2rad(double deg) {
-	return (deg * PI / 180);
-}
-
-double calculateDist(double lat1, double lat2, double lon1, double lon2) {
-	  double dlat,dlon, latsin, lonsin,result;
-	  dlat=deg2rad(lat2-lat1);
-	  dlon=deg2rad(lon2-lon1);
-	  latsin = sin(dlat/2);
-	  lonsin = sin(dlon/2);
-	  result = asin(sqrt(latsin * latsin + cos(deg2rad(lat1)) * cos(deg2rad(lat2)) * lonsin * lonsin));
-	  return 2.0 * earthRadius * result;
-	}
-
-
 void saveClientsFile(){
+	cout << "Saving clients info to clients.txt File ..........";
 
 }
 

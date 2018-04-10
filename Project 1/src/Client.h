@@ -6,15 +6,20 @@
 #define CLIENT_H_
 
 #include "Graph.h"
+#include <string>
 
-using namespace std;
 
 class Client {
-	Vertex<int> * node;
+	Vertex * node;
+	string name;
+	bool visited;
 public:
-	Client(Vertex<int>* node);
+	Client(Vertex* node,string name);
 	int getNodeId();
-	Vertex<int>* getVertex();
+	string getName();
+	bool isVisited();
+	Vertex* getVertex();
+	void setVisited(bool visited);
 };
 
 
