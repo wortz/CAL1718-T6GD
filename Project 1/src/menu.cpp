@@ -52,19 +52,14 @@ void mainMenu(){
 			break;
 		case 3:
 			printClients();
-			// funçao 3
 			break;
-		case 4:
-			// funçao 4
+		case 4:addSupermarket();
 			break;
-		case 5:
-			// funçao 5
+		case 5:removerSupermarket();
 			break;
-		case 6:
-			// funçao 6
+		case 6:printSupermarkets();
 			break;
-		case 7:
-			// funçao 7
+		case 7:// routes
 			break;
 		}
 	}
@@ -80,12 +75,12 @@ bool returnmenu() {
 			for (unsigned int j = 0; j < 10; j++)
 				cout << "\n\n\n\n\n";
 			mainMenu();
-		} else if (c == 'n')
-			return false;
+		}
+		return false;
 	}
 }
 
-void addClient() {
+	void addClient() {
 	int info;
 	cout << "Insira o ID do Vertice desejado, para adicionar cliente:\n";
 	cin >> info;
@@ -99,16 +94,15 @@ void addClient() {
 			Client * c = new Client(v, name);
 			company->addClient(c);
 		}
-		else {
+		else 
 			cout << "\nVertice com ID inserido já ocupado!\n";
-		}
 	} else
 		cout << "\nVertice com ID inserido nao existe!\n";
 }
 
 void removeClient(){
 	int info;
-	cout << "Insira o ID do Vertice desejado, para adicionar cliente:\n";
+	cout << "Insira o ID do Vertice desejado, para remover cliente:\n";
 	cin >> info;
 	Graph * g = company->getGraph();
 	Vertex * v = g.findVertex(info);
@@ -125,26 +119,49 @@ void removeClient(){
 		cout << "\nVertice com ID inserido nao existe!\n";
 }
 
-void printClients(){
+void printClients() {
 	cout << "Clients:\n";
 	company->coutClients();
 }
 
 void addSupermarket(){
-
-	/*company->isAvailable(....)            ver se o nó esta livre
-	* company->addSupermarket(....)         se estiver livre adicionar
-	*/
+	int info;
+	cout << "Insira o ID do Vertice desejado, para adicionar supermercado:\n";
+	cin >> info;
+	Graph * g = company->getGraph();
+	Vertex * v = g.findVertex(info);
+	if (v == NULL) {
+		if (company->isAvailable(info)) { // alterar isavailablre arguments
+			cout << "\n Vertice livre! \nInsira agora o nome do Cliente a acrescentar:\n";
+			Supermarket * s = new Supermarket(v);
+			company->addSupermarket(s);
+		}
+		else {
+			cout << "\nVertice com ID inserido já ocupado!\n";
+		}
+	} else
+		cout << "\nVertice com ID inserido nao existe!\n";
 }
 
 void removerSupermarket(){
-	/*
-	 * company->removeSupermarket(....)           se existir remover(return true se remover,false se nao existir)
-	 */
+	int info;
+	cout << "Insira o ID do Vertice desejado, para remover supermercado:\n";
+	cin >> info;
+	Graph * g = company->getGraph();
+	Vertex * v = g.findVertex(info);
+	if (v == NULL) {
+		if (company->isAvailable(info)) { // alterar isavailablre arguments
+			company->removeSupermarket(info); // alterar removesupermarket 
+		}
+		else {
+			cout << "\nVertice com ID inserido já ocupado!\n";
+		}
+	}
+	else
+		cout << "\nVertice com ID inserido nao existe!\n";
 }
 
 void printSupermarkets(){
-	/*
-	 * company->coutClients()              dá print de todos os clientes
-	 */
+	cout << "Clients:\n";
+	company->coutSupermarkets();
 }
