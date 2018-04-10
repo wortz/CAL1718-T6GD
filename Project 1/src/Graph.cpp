@@ -240,13 +240,13 @@ void Graph::dijkstraShortestPath(const int &origin) {
 
 
 vector<Vertex *> Graph::getPath(const int &origin, const int &dest) const {
-	vector<int> res;
+	vector<Vertex *> res;
 	auto v = findVertex(dest);
 	if (v == nullptr || v->dist == INF)
 	// missing or disconnected
 	return res;
 	for (; v != nullptr; v = v->path)
-		res.push_back(v->info);
+		res.push_back(v);
 	reverse(res.begin(), res.end());
 	return res;
 }

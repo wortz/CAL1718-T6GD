@@ -146,7 +146,6 @@ void HomeDeliveryCompany::showPath(int id){
 	vector<Vertex *> Allpath;
 	vector<Vertex *> TempPath;
 	int info1;
-	int info2;
 	for(auto it:supermarkets){
 		s=it;
 		if(s->getId()==id)
