@@ -82,6 +82,9 @@ bool returnmenu() {
 
 	void addClient() {
 	int info;
+	cout << "Vértices livres:\n";
+	company->coutNodesAvailable();
+	cout << "\n\n";
 	cout << "Insira o ID do Vertice desejado, para adicionar cliente:\n";
 	cin >> info;
 	Graph * g = company->getGraph();
@@ -90,6 +93,7 @@ bool returnmenu() {
 	if (v == NULL) {
 		if (company->isAvailable(info)) { // alterar isavailablre arguments
 			cout << "\n Vertive livre! \nInsira agora o nome do Cliente a acrescentar:\n";
+			cin.ignore();
 			cin >> name;
 			Client * c = new Client(v, name);
 			company->addClient(c);
@@ -106,7 +110,6 @@ void removeClient(){
 	cin >> info;
 	Graph * g = company->getGraph();
 	Vertex * v = g.findVertex(info);
-	string name;
 	if (v == NULL) {
 		if (!company->isAvailable(info)) { // alterar isavailablre arguments to int in
 			company->removeClient(info);
@@ -126,6 +129,9 @@ void printClients() {
 
 void addSupermarket(){
 	int info;
+	cout << "Vértices livres:\n";
+	company->coutNodesAvailable();
+	cout << "\n\n";
 	cout << "Insira o ID do Vertice desejado, para adicionar supermercado:\n";
 	cin >> info;
 	Graph * g = company->getGraph();
