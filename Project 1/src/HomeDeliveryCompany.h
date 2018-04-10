@@ -2,11 +2,14 @@
 #ifndef HOMEDELIVERYCOMPANY_H_
 #define HOMEDELIVERYCOMPANY_H_
 
+#define VELOCITY 0.5
+
 #include "Graph.h"
 #include "Road.h"
 #include "Supermarket.h"
-#include <iostream>
+#include "Utility.h"
 #include "graphviewer.h"
+#include <iostream>
 
 
 
@@ -20,7 +23,7 @@ class HomeDeliveryCompany {
   void reworkOrganization();
   bool addClientToSupermarket(Client * c);
   public:
-  bool isAvailable(Vertex * v);
+  bool isAvailable(int node);
   HomeDeliveryCompany();
   void setGraph(Graph * graph);
   bool addClient(Client * c);
@@ -29,11 +32,13 @@ class HomeDeliveryCompany {
   void coutNodesAvailable();
   Road * getRoad(int id);
   Graph * getGraph();
+  Supermarket* findSuper(int id);
   bool removeClient(int nodeId);
-  bool removeSupermarket(Supermarket * s);
+  bool removeSupermarket(int id);
   void coutClients();
   void coutSupermarkets();
-  void showPath(int id);
+  vector<Vertex*> createRote(int id);
+  void printGraphviewer(vector<Vertex> v);
 
 
 };

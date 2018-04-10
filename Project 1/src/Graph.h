@@ -42,6 +42,7 @@ public:
 	double getLon();
 	double getLat();
 	double getDist();
+	Edge findEdgeTo(const int &dest);
 	Vertex * getPrevious();
 	Vertex(int in,double lat,double lon);
 	friend class Graph;
@@ -58,6 +59,7 @@ class Edge {
 	bool oneway;
 public:
 	Edge(Vertex *d, double w,bool oneway);
+	bool isOneWay();
 	friend class Graph;
 	friend class Vertex;
 };
@@ -74,11 +76,12 @@ public:
 	bool removeVertex(const int &in);
 	bool addEdge(const int &sourc, const int &dest, double w,bool oneway);
 	bool removeEdge(const int &sourc, const int &dest);
-	vector<Vertex *> getPath(const int &origin, const int &dest) const;
+	vector<Vertex*> getPath(const int &origin, const int &dest) const;
 	void dijkstraShortestPath(const int &s);
 	bool relax(Vertex *v, Vertex *w, double weight);
 	Vertex * initSingleSource(const int &origin);
 	vector<Vertex *> getNodes();
+	Edge findEdge(const int &sourc,const int &dest);
 };
 
 /****************** Provided constructors and functions ********************/

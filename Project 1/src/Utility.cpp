@@ -21,4 +21,14 @@ double deg2rad(double deg) {
 	return (deg * PI / 180);
 }
 
+int coord2X(double lon){
+	return (round(Width / (maxlon - minlon) * (lon - minlon)));
+}
+
+int coord2Y(double lat){
+	return (Height
+	- (round(Height / (maxlat - minlat) * (lat - minlat))));
+}
+
+
 

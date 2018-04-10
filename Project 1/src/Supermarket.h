@@ -23,7 +23,8 @@ public:
 	int getId();
 	bool removeClient(Client * c);
 	int closestClient();
-	int getNrClients();
+	unsigned int getNrClients();
+	void resetAllVisited();
 };
 
 

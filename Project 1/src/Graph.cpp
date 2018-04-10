@@ -51,6 +51,14 @@ double Vertex::getDist(){
 	return this->dist;
 }
 
+Edge Vertex::findEdgeTo(const int &dest){
+	for(auto it:adj){
+		if(dest==it.dest->getInfo())
+			return it;
+	}
+	return Edge(0,0,false);
+}
+
 /*
  * Auxiliary function to add an outgoing edge to a vertex (this),
  * with a given destination vertex (d) and edge weight (w).
@@ -80,7 +88,9 @@ bool Vertex::removeEdgeTo(Vertex *d) {
 
 Edge::Edge(Vertex *d, double w,bool oneway): dest(d), weight(w), oneway(oneway) {}
 
-
+bool Edge::isOneWay(){
+	return oneway;
+}
 
 
 /*GRAPH*/
@@ -127,6 +137,13 @@ bool Graph::addEdge(const int &sourc, const int &dest, double w,bool oneway) {
 	if(!oneway)
 		v2->addEdge(v1,w,oneway);
 	return true;
+}
+
+
+Edge Graph::findEdge(const int &sourc,const int &dest){
+	auto v1 = findVertex(sourc);
+	return (v1->findEdgeTo(dest));
+
 }
 
 
@@ -239,16 +256,16 @@ void Graph::dijkstraShortestPath(const int &origin) {
  */
 
 
-vector<Vertex *> Graph::getPath(const int &origin, const int &dest) const {
-	vector<Vertex *> res;
-	auto v = findVertex(dest);
-	if (v == nullptr || v->dist == INF)
-	// missing or disconnected
-	return res;
-	for (; v != nullptr; v = v->path)
-		res.push_back(v);
-	reverse(res.begin(), res.end());
-	return res;
+vector<Vertex*> Graph::getPath(const int &origin, const int &dest) const {
+	vector<Vertex*> res;
+		int inf=dest;
+		while(inf!=origin){
+			res.push_back(this->findVertex(inf));
+			inf=this->findVertex(inf)->path->info;
+		}
+		res.push_back(this->findVertex(inf));
+		reverse(res.begin(),res.end());
+		return res;
 }
 
 

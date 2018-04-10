@@ -45,10 +45,7 @@ int Supermarket::closestClient() {
 	for (auto client : clients) {
 		if(client->isVisited())
 				continue;
-		if (distmin == -1) {
-			distmin = client->getVertex()->getDist();
-			c = client;
-		} else if (distmin > client->getVertex()->getDist()) {
+		if (distmin == -1||distmin > client->getVertex()->getDist()) {
 			distmin = client->getVertex()->getDist();
 			c = client;
 		}
@@ -57,7 +54,11 @@ int Supermarket::closestClient() {
 	return c->getNodeId();
 }
 
-int Supermarket::getNrClients(){
+unsigned int Supermarket::getNrClients(){
 	return clients.size();
 }
 
+void Supermarket::resetAllVisited(){
+	for(auto it:clients)
+		it->setVisited(false);
+}

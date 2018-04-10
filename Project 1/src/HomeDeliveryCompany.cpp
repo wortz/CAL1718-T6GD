@@ -26,6 +26,14 @@ Graph * HomeDeliveryCompany::getGraph(){
 	return graph;
 }
 
+Supermarket* HomeDeliveryCompany::findSuper(int id){
+	for(auto it:supermarkets){
+		if(it->getId()==id)
+			return it;
+	}
+	return NULL;
+}
+
 bool HomeDeliveryCompany::addClient(Client * c){
 	if(addClientToSupermarket(c)){
 		clients.push_back(c);
@@ -40,10 +48,12 @@ void HomeDeliveryCompany::addRoad(Road* r){
 
 void HomeDeliveryCompany::addSupermarket(Supermarket* s){
 	int idmax=0;
-	if (s->getId() == -1) {
+	if (s->getId() == -1&&supermarkets.size()>0) {
 		Supermarket * aux=supermarkets[supermarkets.size()-1];
 		idmax=aux->getId();
 	}
+		idmax++;
+		s->setId(idmax);
 		supermarkets.push_back(s);
 	if(!clients.size()==0)
 		reworkOrganization();
@@ -84,14 +94,14 @@ bool HomeDeliveryCompany::addClientToSupermarket(Client * c){
 	return true;
 }
 
-bool HomeDeliveryCompany::isAvailable(Vertex * v){
+bool HomeDeliveryCompany::isAvailable(int node){
 	for(auto s:supermarkets){
-			if(v->getInfo()==s->getNode()->getInfo()){
+			if(node==s->getNode()->getInfo()){
 				return false;
 			}
 		}
 		for(auto c:clients){
-			if(v->getInfo()==c->getNodeId()){
+			if(node==c->getNodeId()){
 				return false;
 			}
 		}
@@ -110,7 +120,8 @@ bool HomeDeliveryCompany::removeClient(int nodeId) {
 	return false;
 }
 
-bool HomeDeliveryCompany::removeSupermarket(Supermarket * s){
+bool HomeDeliveryCompany::removeSupermarket(int id){
+	Supermarket* s = findSuper(id);
 	for(unsigned int i=0;i<supermarkets.size();i++)
 			if(s->getNode()->getInfo()==supermarkets[i]->getNode()->getInfo()){
 				supermarkets.erase(supermarkets.begin()+i);
@@ -124,7 +135,7 @@ bool HomeDeliveryCompany::removeSupermarket(Supermarket * s){
 void HomeDeliveryCompany::coutNodesAvailable(){
 //	auto allNodes=graph->getNodes();
 	for(auto node:graph->getNodes()){
-		if(isAvailable(node))
+		if(isAvailable(node->getInfo()))
 			cout << "Node Id : " << node->getInfo() << endl;
 	}
 }
@@ -141,25 +152,58 @@ void HomeDeliveryCompany::coutSupermarkets(){
 	}
 }
 
-void HomeDeliveryCompany::showPath(int id){
+vector<Vertex*> HomeDeliveryCompany::createRote(int id){
 	Supermarket * s;
-	vector<Vertex *> Allpath;
-	vector<Vertex *> TempPath;
+	vector<Vertex*> TempPath;
+	vector<Vertex*> AllPath;
 	int info1;
-	for(auto it:supermarkets){
-		s=it;
-		if(s->getId()==id)
-			break;
-	}
+	s=findSuper(id);
+	int info2;
 	info1=s->getNode()->getInfo();
-	graph->dijkstraShortestPath(info1);
-	int info2=s->closestClient();
-	TempPath=graph->getPath(info1,info2);
-	for(auto it:TempPath){
-
+	for(unsigned int i=0;i<s->getNrClients();i++){
+		graph->dijkstraShortestPath(info1);
+		info2=s->closestClient();
+		TempPath=graph->getPath(info1,info2);
+		for(auto it:TempPath)
+			AllPath.push_back(it);
+		info1=info2;
 	}
-
+	info2=s->getNode()->getInfo();
+	graph->dijkstraShortestPath(info1);
+	TempPath=graph->getPath(info1,info2);
+	for(auto it:TempPath)
+		AllPath.push_back(it);
+	s->resetAllVisited();
+//	printGraphviewer(AllPath);
+	return AllPath;
 }
+
+/*void HomeDeliveryCompany::printGraphviewer(vector<Vertex> v){
+	gv = new GraphViewer(Height, Width, false);
+	gv->setBackground("background.png");
+	gv->createWindow(1003, 784);
+	gv->defineVertexColor("green");
+	gv->defineEdgeColor("blue");
+	int u=0;
+	for(unsigned int i=0;i<v.size();i++){
+		int info=v[i].getInfo();
+		int x=coord2Y(v[i].getLon());
+		int y=coord2Y(v[i].getLat());
+		gv->addNode(info,x,y);
+	}
+	for(unsigned int i=0;i<(v.size()-1);i++){
+			int info1=v[i].getInfo();
+			int info2=v[i+1].getInfo();
+			int oneway=0;
+			auto e=graph->findEdge(info1,info2);
+			if(e.isOneWay())
+				oneway=1;
+			gv->addEdge(u,info1,info2,oneway);
+			u++;
+		}
+}
+*/
+
 
 
 
