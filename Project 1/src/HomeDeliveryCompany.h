@@ -20,7 +20,7 @@ class HomeDeliveryCompany {
   void reworkOrganization();
   bool addClientToSupermarket(Client * c);
   public:
-  bool isAvailable(Vertex * v);
+  bool isAvailable(int id);
   HomeDeliveryCompany();
   void setGraph(Graph * graph);
   bool addClient(Client * c);

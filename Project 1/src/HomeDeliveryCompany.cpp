@@ -59,7 +59,7 @@ bool HomeDeliveryCompany::addClientToSupermarket(Client * c){
 	double d=-1;
 	double curr;
 	bool notConnected=true;
-	Supermarket* i;
+	Supermarket* i = NULL;
 	for(auto v:supermarkets){
 		graph->dijkstraShortestPath(v->getNode()->getInfo());
 		auto n=c->getVertex();
@@ -84,18 +84,18 @@ bool HomeDeliveryCompany::addClientToSupermarket(Client * c){
 	return true;
 }
 
-bool HomeDeliveryCompany::isAvailable(Vertex * v){
+bool HomeDeliveryCompany::isAvailable(int id){
 	for(auto s:supermarkets){
-			if(v->getInfo()==s->getNode()->getInfo()){
+			if(id == s->getNode()->getInfo()){
 				return false;
 			}
+	}
+	for(auto c:clients){
+		if(id == c->getNodeId()){
+			return false;
 		}
-		for(auto c:clients){
-			if(v->getInfo()==c->getNodeId()){
-				return false;
-			}
-		}
-		return true;
+	}
+	return true;
 }
 
 bool HomeDeliveryCompany::removeClient(int nodeId) {
@@ -142,7 +142,7 @@ void HomeDeliveryCompany::coutSupermarkets(){
 }
 
 void HomeDeliveryCompany::showPath(int id){
-	Supermarket * s;
+	Supermarket * s = NULL;
 	vector<Vertex *> Allpath;
 	vector<Vertex *> TempPath;
 	int info1;

@@ -41,7 +41,7 @@ bool Supermarket::removeClient(Client * c){
 
 int Supermarket::closestClient() {
 	int distmin = -1;
-	Client * c;
+	Client * c = NULL;
 	for (auto client : clients) {
 		if(client->isVisited())
 				continue;

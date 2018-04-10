@@ -6,7 +6,7 @@
  */
 
 #include "menu.h"
-
+#include <string.h>
 
 void inicateApp(){
 	readFiles();
@@ -15,79 +15,124 @@ void inicateApp(){
 
 void mainMenu(){
 	size_t input = 0;
-			while (true) {
-				vector<string> options = {
-					"Add client.",
-					"Remove client.",
-					"See existent clients.",
-					"Add Supermarket.",
-					"Remove Supermarket.",
-					"See existent Supermarkets.",
-					"Rotas."
-				};
+	while (returnmenu()) {
+		vector<string> options = {
+			"Add client.",
+			"Remove client.",
+			"See existent clients.",
+			"Add Supermarket.",
+			"Remove Supermarket.",
+			"See existent Supermarkets.",
+			"Routes."
+		};
 
-				for (size_t i = 0; i < options.size() - 1 ; i++) {
-					cout << " " << i+1 << " - ";
-					cout << options.at(i) << "\n";
-				}
-				cout << " 0 - SAIR\n";
-				cout << "\n" << "Escolha a opcao desejada: ";
-				cin >> input;
-
-				if(!(input>=0&&input<=options.size())){
-					cout << "\n" << "";
-				}
-
-				/* validar input */
-				if (input == 0) {
-					system("cls");
-					break;
-				}
-
-				switch (input) {
-				case 1:
-					addClient();
-					break;
-				case 2: // funÁao 2
-					break;
-				case 3: // funÁao 3
-					break;
-				case 4: // funÁao 4
-					break;
-				case 5: // funÁao 5
-					break;
-				case 6:
-					break;
-				case 7:
-					break;
-				}
-
-				/* call function and clear console */
-				system("cls");
-				cin.ignore();
+		for (size_t i = 0; i < options.size() - 1 ; i++) {
+			cout << " " << i+1 << " - ";
+			cout << options.at(i) << "\n";
 		}
+		cout << " 0 - EXIT\n";
+		cout << "\n" << "Chose an option: ";
+		cin >> input;
+
+		if(!(input>=0&&input<=options.size())){
+			cout << "\n" << "";
+		}
+		/* validar input */
+		if (input == 0) {
+			break;
+		}
+		for (unsigned int j = 0; j < 10; j++)
+			cout << "\n\n\n\n\n";
+		switch (input) {
+		case 1:
+			addClient();
+			break;
+		case 2:
+			removeClient();
+			break;
+		case 3:
+			printClients();
+			// fun√ßao 3
+			break;
+		case 4:
+			// fun√ßao 4
+			break;
+		case 5:
+			// fun√ßao 5
+			break;
+		case 6:
+			// fun√ßao 6
+			break;
+		case 7:
+			// fun√ßao 7
+			break;
+		}
+	}
+	return;
+}
+
+bool returnmenu() {
+	char c;
+	while (true) {
+		cout << "\n\n\n Do you wish to return to main menu? (y/n)\n";
+		cin >> c;
+		if (c == 'y') {
+			for (unsigned int j = 0; j < 10; j++)
+				cout << "\n\n\n\n\n";
+			mainMenu();
+		} else if (c == 'n')
+			return false;
+	}
 }
 
 void addClient() {
-	/*company->isAvailable(....)            ver se o nÛ esta livre
-	* company->addSupermarket(....)         se estiver livre adicionar
-	*/
+	int info;
+	cout << "Insira o ID do Vertice desejado, para adicionar cliente:\n";
+	cin >> info;
+	Graph * g = company->getGraph();
+	Vertex * v = g.findVertex(info);
+	string name;
+	if (v == NULL) {
+		if (company->isAvailable(info)) { // alterar isavailablre arguments
+			cout << "\n Vertive livre! \nInsira agora o nome do Cliente a acrescentar:\n";
+			cin >> name;
+			Client * c = new Client(v, name);
+			company->addClient(c);
+		}
+		else {
+			cout << "\nVertice com ID inserido j√° ocupado!\n";
+		}
+	} else
+		cout << "\nVertice com ID inserido nao existe!\n";
 }
 
 void removeClient(){
-	/*
-	 * company->removeClient(....)           se existir remover(return true se remover,false se nao existir)
-	 */
+	int info;
+	cout << "Insira o ID do Vertice desejado, para adicionar cliente:\n";
+	cin >> info;
+	Graph * g = company->getGraph();
+	Vertex * v = g.findVertex(info);
+	string name;
+	if (v == NULL) {
+		if (!company->isAvailable(info)) { // alterar isavailablre arguments to int in
+			company->removeClient(info);
+			cout << "\nVertice com ID inserido liberado!\n";
+		}
+		else {
+			cout << "\nVertice com ID inserido n√£o esta ocupado!\n";
+		}
+	} else
+		cout << "\nVertice com ID inserido nao existe!\n";
 }
 
 void printClients(){
-	/*
-	 * company->coutClients()              d· print de todos os clientes
-	 */
+	cout << "Clients:\n";
+	company->coutClients();
 }
 
 void addSupermarket(){
-	/*company->isAvailable(....)            ver se o nÛ esta livre
+
+	/*company->isAvailable(....)            ver se o n√≥ esta livre
 	* company->addSupermarket(....)         se estiver livre adicionar
 	*/
 }
@@ -100,6 +145,6 @@ void removerSupermarket(){
 
 void printSupermarkets(){
 	/*
-	 * company->coutClients()              d· print de todos os clientes
+	 * company->coutClients()              d√° print de todos os clientes
 	 */
 }
