@@ -6,7 +6,7 @@
  */
 
 #include "menu.h"
-
+#include <string.h>
 
 void inicateApp(){
 	readFiles();
@@ -15,91 +15,159 @@ void inicateApp(){
 
 void mainMenu(){
 	size_t input = 0;
-			while (true) {
-				vector<string> options = {
-					"Add client.",
-					"Remove client.",
-					"See existent clients.",
-					"Add Supermarket.",
-					"Remove Supermarket.",
-					"See existent Supermarkets.",
-					"Rotas."
-				};
+	while (returnmenu()) {
+		vector<string> options = {
+			"Add client.",
+			"Remove client.",
+			"See existent clients.",
+			"Add Supermarket.",
+			"Remove Supermarket.",
+			"See existent Supermarkets.",
+			"Routes."
+		};
 
-				for (size_t i = 0; i < options.size() - 1 ; i++) {
-					cout << " " << i+1 << " - ";
-					cout << options.at(i) << "\n";
-				}
-				cout << " 0 - SAIR\n";
-				cout << "\n" << "Escolha a opcao desejada: ";
-				cin >> input;
-
-				if(!(input>=0&&input<=options.size())){
-					cout << "\n" << "";
-				}
-
-				/* validar input */
-				if (input == 0) {
-					system("cls");
-					break;
-				}
-
-				switch (input) {
-				case 1:
-					addClient();
-					break;
-				case 2: // funçao 2
-					break;
-				case 3: // funçao 3
-					break;
-				case 4: // funçao 4
-					break;
-				case 5: // funçao 5
-					break;
-				case 6:
-					break;
-				case 7:
-					break;
-				}
-
-				/* call function and clear console */
-				system("cls");
-				cin.ignore();
+		for (size_t i = 0; i < options.size() - 1 ; i++) {
+			cout << " " << i+1 << " - ";
+			cout << options.at(i) << "\n";
 		}
+		cout << " 0 - EXIT\n";
+		cout << "\n" << "Chose an option: ";
+		cin >> input;
+
+		if(!(input>=0&&input<=options.size())){
+			cout << "\n" << "";
+		}
+		/* validar input */
+		if (input == 0) {
+			break;
+		}
+		for (unsigned int j = 0; j < 10; j++)
+			cout << "\n\n\n\n\n";
+		switch (input) {
+		case 1:
+			addClient();
+			break;
+		case 2:
+			removeClient();
+			break;
+		case 3:
+			printClients();
+			break;
+		case 4:addSupermarket();
+			break;
+		case 5:removerSupermarket();
+			break;
+		case 6:printSupermarkets();
+			break;
+		case 7:// routes
+			break;
+		}
+	}
+	return;
 }
 
-void addClient() {
-	/*company->isAvailable(....)            ver se o nó esta livre
-	* company->addSupermarket(....)         se estiver livre adicionar
-	*/
+bool returnmenu() {
+	char c;
+	while (true) {
+		cout << "\n\n\n Do you wish to return to main menu? (y/n)\n";
+		cin >> c;
+		if (c == 'y') {
+			for (unsigned int j = 0; j < 10; j++)
+				cout << "\n\n\n\n\n";
+			mainMenu();
+		}
+		return false;
+	}
+}
+
+	void addClient() {
+	int info;
+	cout << "VÃ©rtices livres:\n";
+	company->coutNodesAvailable();
+	cout << "\n\n";
+	cout << "Insira o ID do Vertice desejado, para adicionar cliente:\n";
+	cin >> info;
+	Graph * g = company->getGraph();
+	Vertex * v = g.findVertex(info);
+	string name;
+	if (v == NULL) {
+		if (company->isAvailable(info)) { // alterar isavailablre arguments
+			cout << "\n Vertive livre! \nInsira agora o nome do Cliente a acrescentar:\n";
+			cin.ignore();
+			cin >> name;
+			Client * c = new Client(v, name);
+			company->addClient(c);
+		}
+		else 
+			cout << "\nVertice com ID inserido jÃ¡ ocupado!\n";
+	} else
+		cout << "\nVertice com ID inserido nao existe!\n";
 }
 
 void removeClient(){
-	/*
-	 * company->removeClient(....)           se existir remover(return true se remover,false se nao existir)
-	 */
+	int info;
+	cout << "Insira o ID do Vertice desejado, para remover cliente:\n";
+	cin >> info;
+	Graph * g = company->getGraph();
+	Vertex * v = g.findVertex(info);
+	if (v == NULL) {
+		if (!company->isAvailable(info)) { // alterar isavailablre arguments to int in
+			company->removeClient(info);
+			cout << "\nVertice com ID inserido liberado!\n";
+		}
+		else {
+			cout << "\nVertice com ID inserido nÃ£o esta ocupado!\n";
+		}
+	} else
+		cout << "\nVertice com ID inserido nao existe!\n";
 }
 
-void printClients(){
-	/*
-	 * company->coutClients()              dá print de todos os clientes
-	 */
+void printClients() {
+	cout << "Clients:\n";
+	company->coutClients();
 }
 
 void addSupermarket(){
-	/*company->isAvailable(....)            ver se o nó esta livre
-	* company->addSupermarket(....)         se estiver livre adicionar
-	*/
+	int info;
+	cout << "VÃ©rtices livres:\n";
+	company->coutNodesAvailable();
+	cout << "\n\n";
+	cout << "Insira o ID do Vertice desejado, para adicionar supermercado:\n";
+	cin >> info;
+	Graph * g = company->getGraph();
+	Vertex * v = g.findVertex(info);
+	if (v == NULL) {
+		if (company->isAvailable(info)) { // alterar isavailablre arguments
+			cout << "\n Vertice livre! \nInsira agora o nome do Cliente a acrescentar:\n";
+			Supermarket * s = new Supermarket(v);
+			company->addSupermarket(s);
+		}
+		else {
+			cout << "\nVertice com ID inserido jÃ¡ ocupado!\n";
+		}
+	} else
+		cout << "\nVertice com ID inserido nao existe!\n";
 }
 
 void removerSupermarket(){
-	/*
-	 * company->removeSupermarket(....)           se existir remover(return true se remover,false se nao existir)
-	 */
+	int info;
+	cout << "Insira o ID do Vertice desejado, para remover supermercado:\n";
+	cin >> info;
+	Graph * g = company->getGraph();
+	Vertex * v = g.findVertex(info);
+	if (v == NULL) {
+		if (company->isAvailable(info)) { // alterar isavailablre arguments
+			company->removeSupermarket(info); // alterar removesupermarket 
+		}
+		else {
+			cout << "\nVertice com ID inserido jÃ¡ ocupado!\n";
+		}
+	}
+	else
+		cout << "\nVertice com ID inserido nao existe!\n";
 }
 
 void printSupermarkets(){
-	/*
-	 * company->coutClients()              dá print de todos os clientes
-	 */
+	cout << "Clients:\n";
+	company->coutSupermarkets();
 }

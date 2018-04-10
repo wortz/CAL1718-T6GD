@@ -12,6 +12,7 @@
 #include<iostream>
 #include "Graph.h"
 
+bool returnmenu();
 void inicateApp();
 void mainMenu();
 void addClient();
@@ -19,7 +20,6 @@ void removeClient();
 void addSupermarket();
 void removerSupermarket();
 void printSupermarkets();
-
 
 
 #endif /* MENU_H_ */
