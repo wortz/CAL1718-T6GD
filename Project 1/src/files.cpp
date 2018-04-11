@@ -161,7 +161,32 @@ void readClientsFile()
 }
 
 void saveClientsFile(){
-	cout << "Saving clients info to clients.txt File ..........";
+	cout << "Saving clients info to clients.txt File ..........\n";
+	ofstream file;
+	file.open("clients.txt",fstream::out|fstream::trunc);
+	vector<Client * > v =company->getClients();
+	for(unsigned int it=0; it< v.size();it++)
+	{
+		file<<v[it]->getNodeId()<<";"<<v[it]->getName()<<";";
+		if(it!=v.size()-1)
+			file<<"\n";
+	}
+	file.clear();
+	file.close();
+}
 
+void saveSupermarketsFile(){
+	cout << "Saving Supermarkets info to supermarkets.txt File ..........\n";
+	ofstream file;
+	file.open("clients.txt",fstream::out|fstream::trunc);
+	vector<Supermarket * > s =company->getSupermarkets();
+	for(unsigned int it=0; it< s.size();it++)
+	{
+		file<<s[it]->getNode()->getInfo()<<";";
+		if(it!=s.size()-1)
+			file<<"\n";
+	}
+	file.clear();
+	file.close();
 }
 

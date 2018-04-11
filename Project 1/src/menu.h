@@ -11,8 +11,12 @@
 #include "files.h"
 #include<iostream>
 #include "Graph.h"
+#include "graphviewer.h"
+#include "edgetype.h"
 
-bool returnmenu();
+
+
+void returnmenu();
 void inicateApp();
 void mainMenu();
 void addClient();
@@ -20,6 +24,11 @@ void removeClient();
 void addSupermarket();
 void removerSupermarket();
 void printSupermarkets();
+void printClients();
+void printClientsSupermarket();
+void printGraph();
+void closeWindow();
+void lines();
 
 
 #endif /* MENU_H_ */

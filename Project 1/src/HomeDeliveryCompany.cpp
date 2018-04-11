@@ -183,8 +183,13 @@ vector<Vertex*> HomeDeliveryCompany::createRote(int id){
 	return AllPath;
 }
 
+vector<Client *> HomeDeliveryCompany::getClients(){
+	return clients;
+}
 
-
+vector<Supermarket *> HomeDeliveryCompany::getSupermarkets(){
+	return supermarkets;
+}
 
 
 

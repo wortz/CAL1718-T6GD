@@ -39,6 +39,8 @@ class HomeDeliveryCompany {
   void coutSupermarkets();
   vector<Vertex*> createRote(int id);
   void printGraphviewer(vector<Vertex> v);
+  vector<Client *> getClients();
+  vector<Supermarket *> getSupermarkets();
 
 
 };
