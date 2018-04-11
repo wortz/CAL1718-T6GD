@@ -29,17 +29,15 @@ void mainMenu(){
 			"See distance and time of routes."
 		};
 
-		for (size_t i = 0; i < options.size() - 1 ; i++) {
+		for (size_t i = 0; i <= options.size() - 1 ; i++) {
 			cout << " " << i+1 << " - ";
 			cout << options.at(i) << "\n";
 		}
 		cout << " 10 - EXIT\n";
 		cout << "\n" << "Chose an option: ";
-
-		cin >> input;
-
 		cin.clear();
-		cin.ignore();
+		cin >> input;
+		cin.clear();
 		switch (input) {
 		case 1:
 			lines();
@@ -81,7 +79,9 @@ void mainMenu(){
 			printGraph();
 			returnmenu();
 			return;
-		case 9:// see time and distance routes
+		case 9:
+			seeDistTime();
+			returnmenu();
 			return;
 		case 10:
 			cout<<"\n\n\n\nExiting.\n";
@@ -111,22 +111,24 @@ void returnmenu() {
 }
 
 	void addClient() {
-	int info;
+	long long int info;
 	cout << "Vertices livres:\n";
 	company->coutNodesAvailable();
 	cout << "\n\n";
 	cout << "Insira o ID do Vertice desejado, para adicionar cliente:\n";
 	cin >> info;
+	cin.ignore();
 	Graph * g = company->getGraph();
 	Vertex * v = g->findVertex(info);
 	string name;
-	if (v == NULL) {
+	cin.clear();
+	if (v != NULL) {
 		if (company->isAvailable(info)) { // alterar isavailablre arguments
-			cout << "\n Vertive livre! \nInsira agora o nome do Cliente a acrescentar:\n";
+			cout << "\nVertice livre! \nInsira agora o nome do Cliente a acrescentar:\n";
+			getline(cin, name);
 			cin.ignore();
-			cin >> name;
 			Client * c = new Client(v, name);
-			company->addClient(c);
+			if(company->addClient(c));
 		}
 		else
 			cout << "\nVertice com ID inserido ja ocupado!\n";
@@ -135,9 +137,10 @@ void returnmenu() {
 }
 
 void removeClient(){
-	int info;
+	long long int info;
 	cout << "Insira o ID do Vertice desejado, para remover cliente:\n";
 	cin >> info;
+	cin.clear();
 	Graph * g = company->getGraph();
 	Vertex * v = g->findVertex(info);
 	if (v == NULL) {
@@ -158,12 +161,13 @@ void printClients() {
 }
 
 void addSupermarket(){
-	int info;
-	cout << "Vértices livres:\n";
+	long long int info;
+	cout << "Vertices livres:\n";
 	company->coutNodesAvailable();
 	cout << "\n\n";
 	cout << "Insira o ID do Vertice desejado, para adicionar supermercado:\n";
 	cin >> info;
+	cin.clear();
 	Graph * g = company->getGraph();
 	Vertex * v = g->findVertex(info);
 	if (v == NULL) {
@@ -179,22 +183,19 @@ void addSupermarket(){
 		cout << "\nVertice com ID inserido nao existe!\n";
 }
 
-void removerSupermarket(){
-	int info;
+void removerSupermarket() {
+	int id;
+	cout << "Choose a supermarket ID:\n";
+	printSupermarkets();
+	cout << endl;
 	cout << "Insira o ID do Vertice desejado, para remover supermercado:\n";
-	cin >> info;
-	Graph * g = company->getGraph();
-	Vertex * v = g->findVertex(info);
-	if (v == NULL) {
-		if (company->isAvailable(info)) { // alterar isavailablre arguments
-			company->removeSupermarket(info); // alterar removesupermarket
-		}
-		else {
-			cout << "\nVertice com ID inserido já ocupado!\n";
-		}
-	}
-	else
-		cout << "\nVertice com ID inserido nao existe!\n";
+	cin >> id;
+	cin.ignore();
+	if (company->findSuper(id) != NULL) {
+
+		company->removeSupermarket(id);
+	} else
+		cout << "\nNao existe nenhum supermarket com este ID!\n";
 }
 
 void printSupermarkets(){
@@ -207,6 +208,7 @@ void printClientsSupermarket(){
 	printSupermarkets();
 	cout << "\n" << "Insert id of Supermarket you want:\n";
 	cin >> idoption;
+	cin.ignore();
 	cout << company->findSuper(idoption);
 }
 
@@ -215,8 +217,10 @@ void printGraph(){
 	printSupermarkets();
 	cout<<endl;
 	int sup=0;
-	while(company->findSuper(sup)==NULL)
+	while(company->findSuper(sup)==NULL){
 			cin>> sup;
+			cin.ignore();
+	}
 	GraphViewer *gv = new GraphViewer(Width,Height, false);
 	gv->setBackground("background.png"); //from 1.b)
 	gv->createWindow(Width,Height);
@@ -228,7 +232,6 @@ void printGraph(){
 		gv->defineVertexColor("blue");
 	    int index=vetor[i]->getIndex();
 	    long long int a=vetor[i]->getInfo();
-	    cout << index << " - " << a << endl;
 		int x=coord2X(vetor[i]->getLon());
 		int y=coord2Y(vetor[i]->getLat());
 		gv->addNode(index,x,y);
@@ -237,10 +240,14 @@ void printGraph(){
 		if(i==vetor.size()-1)
 			gv->setVertexColor(index,"green");
 	}
+	cout << company->findSuper(sup)->getNode()->getInfo();
 	for(unsigned int i=0;i<(vetor.size()-1);i++){
 			long long int info1=vetor[i]->getInfo();
 			long long int info2=vetor[i+1]->getInfo();
 			auto e=company->getGraph()->findEdge(info1,info2);
+			cout << "\n-> " << e.getName();
+			if (!company->isAvailable(info2))
+				cout << "\nSTOP: " << info2;
 			int index1=vetor[i]->getIndex();
 			int index2=vetor[i+1]->getIndex();
 			gv->addEdge(u,index1,index2,EdgeType::UNDIRECTED);
@@ -248,7 +255,6 @@ void printGraph(){
 	}
 	gv->defineVertexSize(0.5);
 	gv->rearrange();
-	cin.ignore();
 	getchar();
 	gv->closeWindow();
 }
@@ -259,3 +265,20 @@ void lines(){
 				cout << "\n\n\n\n\n";
 }
 
+void seeDistTime(){
+
+		printSupermarkets();
+		cout<< "Choose a supermarket ID:\n";
+		cout<<endl;
+		int sup=0;
+		while(company->findSuper(sup)==NULL){
+				cin>> sup;
+				cin.ignore();
+		}
+	vector<float> v= company->calculateDistTime(sup);
+	int mins, hrs;
+	mins= (int)v[1]%60;
+	hrs=v[1]/60;
+	cout<< "Route information\n";
+	cout<< "Distance (in meters): " << v[0]<< endl << "Time (hh:min): "<< hrs<< ":" <<mins<<endl;
+}

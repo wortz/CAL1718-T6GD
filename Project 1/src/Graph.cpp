@@ -61,7 +61,7 @@ Edge Vertex::findEdgeTo(const long long int &dest){
 		if(dest==it.dest->getInfo())
 			return it;
 	}
-	return Edge(0,0,false);
+	return Edge(0,0,false,"");
 }
 
 /*
@@ -69,8 +69,8 @@ Edge Vertex::findEdgeTo(const long long int &dest){
  * with a given destination vertex (d) and edge weight (w).
  */
 
-void Vertex::addEdge(Vertex *d, double w,bool oneway) {
-	adj.push_back(Edge(d, w,oneway));
+void Vertex::addEdge(Vertex *d, double w,bool oneway,string name) {
+	adj.push_back(Edge(d, w,oneway,name));
 }
 
 /*
@@ -91,10 +91,14 @@ bool Vertex::removeEdgeTo(Vertex *d) {
 
 /*EDGE*/
 
-Edge::Edge(Vertex *d, double w,bool oneway): dest(d), weight(w), oneway(oneway) {}
+Edge::Edge(Vertex *d, double w,bool oneway,string name): dest(d), weight(w), oneway(oneway),name(name) {}
 
 bool Edge::isOneWay(){
 	return oneway;
+}
+
+string Edge::getName(){
+	return name;
 }
 
 
@@ -133,14 +137,14 @@ bool Graph::addVertex(const long long int &in,double lat,double lon,int index) {
  * Returns true if successful, and false if the source or destination vertex does not exist.
  */
 
-bool Graph::addEdge(const long long int &sourc, const long long int &dest, double w,bool oneway) {
+bool Graph::addEdge(const long long int &sourc, const long long int &dest, double w,bool oneway,string name) {
 	auto v1 = findVertex(sourc);
 	auto v2 = findVertex(dest);
 	if (v1 == NULL || v2 == NULL)
 		return false;
-	v1->addEdge(v2,w,oneway);
+	v1->addEdge(v2,w,oneway,name);
 	if(!oneway)
-		v2->addEdge(v1,w,oneway);
+		v2->addEdge(v1,w,oneway,name);
 	return true;
 }
 

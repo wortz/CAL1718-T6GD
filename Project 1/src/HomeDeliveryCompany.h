@@ -2,7 +2,7 @@
 #ifndef HOMEDELIVERYCOMPANY_H_
 #define HOMEDELIVERYCOMPANY_H_
 
-#define VELOCITY 0.5
+#define VELOCITY 500
 
 #include "Graph.h"
 #include "Road.h"
@@ -41,6 +41,7 @@ class HomeDeliveryCompany {
   void printGraphviewer(vector<Vertex> v);
   vector<Client *> getClients();
   vector<Supermarket *> getSupermarkets();
+  vector<float> calculateDistTime(int id);
 
 
 };

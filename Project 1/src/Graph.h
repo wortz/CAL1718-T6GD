@@ -35,7 +35,7 @@ class Vertex {
 	Vertex *path = NULL;
 	int index;
 
-	void addEdge(Vertex *d, double w,bool oneway);
+	void addEdge(Vertex *d, double w,bool oneway,string name);
 	bool removeEdgeTo(Vertex *d);
 public:
 	long long int getInfo();
@@ -59,9 +59,11 @@ class Edge {
 	Vertex * dest;      // destination vertex
 	double weight;         // edge weight
 	bool oneway;
+	string name;
 public:
-	Edge(Vertex *d, double w,bool oneway);
+	Edge(Vertex *d, double w,bool oneway,string name);
 	bool isOneWay();
+	string getName();
 	friend class Graph;
 	friend class Vertex;
 };
@@ -76,7 +78,7 @@ public:
 	int getNumVertex() const;
 	bool addVertex(const long long int &in,double lat,double lon,int index);
 	bool removeVertex(const long long int &in);
-	bool addEdge(const long long int &sourc, const long long int &dest, double w,bool oneway);
+	bool addEdge(const long long int &sourc, const long long int &dest, double w,bool oneway,string name);
 	bool removeEdge(const long long int &sourc, const long long int &dest);
 	vector<Vertex*> getPath(const long long int &origin, const long long int &dest) const;
 	void dijkstraShortestPath(const long long int &s);

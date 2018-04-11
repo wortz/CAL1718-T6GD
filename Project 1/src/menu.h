@@ -29,6 +29,6 @@ void printClientsSupermarket();
 void printGraph();
 void closeWindow();
 void lines();
-
+void seeDistTime();
 
 #endif /* MENU_H_ */

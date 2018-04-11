@@ -65,6 +65,8 @@ void HomeDeliveryCompany::reworkOrganization(){
 	}
 }
 
+
+
 bool HomeDeliveryCompany::addClientToSupermarket(Client * c){
 	double d=-1;
 	double curr;
@@ -189,6 +191,30 @@ vector<Client *> HomeDeliveryCompany::getClients(){
 
 vector<Supermarket *> HomeDeliveryCompany::getSupermarkets(){
 	return supermarkets;
+}
+
+vector<float> HomeDeliveryCompany::calculateDistTime(int id){
+		vector<float> res;
+		Supermarket * s;
+		vector<Vertex*> TempPath;
+		long long int info1;
+		s=findSuper(id);
+		float dist=0;
+		float time;
+		info1=s->getNode()->getInfo();
+		for(unsigned int i=0;i<s->getNrClients();i++){
+			graph->dijkstraShortestPath(info1);
+			info1=s->closestClient();
+			dist+=graph->findVertex(info1)->getDist();
+		}
+		graph->dijkstraShortestPath(info1);
+		info1=s->getNode()->getInfo();
+		dist+=graph->findVertex(info1)->getDist();
+		res.push_back(dist);
+		time=(dist/VELOCITY) + (5*s->getNrClients());
+		res.push_back(time);
+		s->resetAllVisited();
+		return res;
 }
 
 

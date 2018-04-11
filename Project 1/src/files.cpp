@@ -94,7 +94,7 @@ void readConectionsFile() {
 				cout << "\nError the files roadDir.txt and roadCon.txt do not match.";
 				return;
 			}
-			graph->addEdge(src, dst, dist,v->isOneway());
+			graph->addEdge(src, dst, dist,v->isOneway(),v->getName());
 		}
 		file.close();
 		cout << "        Done!\n";
