@@ -22,10 +22,17 @@ public:
 	Vertex * getNode();
 	int getId();
 	bool removeClient(Client * c);
-	int closestClient();
+	long long int closestClient();
 	unsigned int getNrClients();
 	void resetAllVisited();
+	friend ostream& operator<<(ostream& os, const Supermarket * s){
+		for(auto it:s->clients){
+			os << "Client " << it->getName() << " located at node " << it->getNodeId() << endl;
+		}
+		return os;
+	}
 };
+
 
 
 #endif /* SUPERMARKET_H_ */

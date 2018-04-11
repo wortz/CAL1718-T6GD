@@ -14,7 +14,7 @@ void HomeDeliveryCompany::setGraph(Graph * graph){
 	this->graph=graph;
 }
 
-Road * HomeDeliveryCompany::getRoad(int id){
+Road * HomeDeliveryCompany::getRoad(long long int id){
 	for(auto r:roads){
 		if(r->getId()==id)
 			return r;
@@ -76,6 +76,11 @@ bool HomeDeliveryCompany::addClientToSupermarket(Client * c){
 		if(n->getPrevious()==NULL && notConnected){
 			continue;
 		}
+		graph->dijkstraShortestPath(c->getNodeId());
+		auto s=v->getNode();
+		if(s->getPrevious()==NULL && notConnected){
+			continue;
+		}
 		if(d==-1){
 			d=n->getDist();
 			i=v;
@@ -94,7 +99,7 @@ bool HomeDeliveryCompany::addClientToSupermarket(Client * c){
 	return true;
 }
 
-bool HomeDeliveryCompany::isAvailable(int node){
+bool HomeDeliveryCompany::isAvailable(long long int node){
 	for(auto s:supermarkets){
 			if(node==s->getNode()->getInfo()){
 				return false;
@@ -108,7 +113,7 @@ bool HomeDeliveryCompany::isAvailable(int node){
 		return true;
 }
 
-bool HomeDeliveryCompany::removeClient(int nodeId) {
+bool HomeDeliveryCompany::removeClient(long long int nodeId) {
 	for (unsigned int i = 0; i < clients.size(); i++)
 		if (nodeId == clients[i]->getNodeId()) {
 			for (auto s : supermarkets)
@@ -156,14 +161,15 @@ vector<Vertex*> HomeDeliveryCompany::createRote(int id){
 	Supermarket * s;
 	vector<Vertex*> TempPath;
 	vector<Vertex*> AllPath;
-	int info1;
+	long long int info1;
 	s=findSuper(id);
-	int info2;
+	long long int info2;
 	info1=s->getNode()->getInfo();
 	for(unsigned int i=0;i<s->getNrClients();i++){
 		graph->dijkstraShortestPath(info1);
 		info2=s->closestClient();
 		TempPath=graph->getPath(info1,info2);
+		TempPath.erase(TempPath.begin()+TempPath.size()-1);
 		for(auto it:TempPath)
 			AllPath.push_back(it);
 		info1=info2;
@@ -174,35 +180,10 @@ vector<Vertex*> HomeDeliveryCompany::createRote(int id){
 	for(auto it:TempPath)
 		AllPath.push_back(it);
 	s->resetAllVisited();
-//	printGraphviewer(AllPath);
 	return AllPath;
 }
 
-/*void HomeDeliveryCompany::printGraphviewer(vector<Vertex> v){
-	gv = new GraphViewer(Height, Width, false);
-	gv->setBackground("background.png");
-	gv->createWindow(1003, 784);
-	gv->defineVertexColor("green");
-	gv->defineEdgeColor("blue");
-	int u=0;
-	for(unsigned int i=0;i<v.size();i++){
-		int info=v[i].getInfo();
-		int x=coord2Y(v[i].getLon());
-		int y=coord2Y(v[i].getLat());
-		gv->addNode(info,x,y);
-	}
-	for(unsigned int i=0;i<(v.size()-1);i++){
-			int info1=v[i].getInfo();
-			int info2=v[i+1].getInfo();
-			int oneway=0;
-			auto e=graph->findEdge(info1,info2);
-			if(e.isOneWay())
-				oneway=1;
-			gv->addEdge(u,info1,info2,oneway);
-			u++;
-		}
-}
-*/
+
 
 
 

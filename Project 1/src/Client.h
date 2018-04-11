@@ -15,7 +15,7 @@ class Client {
 	bool visited;
 public:
 	Client(Vertex* node,string name);
-	int getNodeId();
+	long long int getNodeId();
 	string getName();
 	bool isVisited();
 	Vertex* getVertex();

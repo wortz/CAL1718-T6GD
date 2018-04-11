@@ -15,7 +15,7 @@ Client::Client(Vertex * node,string name){
 	this->visited=false;
 }
 
-int Client::getNodeId(){
+long long int Client::getNodeId(){
 	return node->getInfo();
 }
 

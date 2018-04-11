@@ -25,7 +25,8 @@ void readNodesFile() {
 	cout << "Trying to read nodes.txt File ..........";
 	ifstream file;
 	string line;
-	int n;
+	int i=1;
+	long long int n;
 	double lat, lon;
 	char crap;
 	file.open("nodes.txt");
@@ -33,7 +34,8 @@ void readNodesFile() {
 		while (getline(file, line)) {
 			stringstream ss(line);
 			ss >> n >> crap >> lat >> crap >> lon >> crap;
-			graph->addVertex(n, lat, lon);
+			graph->addVertex(n, lat, lon,i);
+			i++;
 		}
 		file.close();
 		cout << "          Done!\n";
@@ -45,7 +47,7 @@ void readDirectionFile() {
 	cout << "Trying to read roadDir.txt File ..........";
 	ifstream file;
 	string line, data, name;
-	int n;
+	long long int n;
 	bool oneway;
 	char crap = ';';
 	file.open("roadDir.txt");
@@ -57,7 +59,7 @@ void readDirectionFile() {
 			getline(ss, data, crap);
 			name = data;
 			getline(ss, data, crap);
-			oneway = (data == "False") ? false : true;
+			oneway = (data == "False") ? true : false;
 			company->addRoad(new Road(n, name, oneway));
 		}
 		file.close();
@@ -70,8 +72,8 @@ void readConectionsFile() {
 	cout << "Trying to read roadCon.txt File ..........";
 	ifstream file;
 	string line;
-	int n;
-	int src, dst;
+	long long int n;
+	long long int src, dst;
 	double dist;
 	char crap;
 	file.open("roadCon.txt");
@@ -105,7 +107,7 @@ void readSupermarketsFile()
 	cout << "Trying to read supermarkets.txt File ..........";
 	ifstream file;
 	string line;
-	int nodeId;
+	long long int nodeId;
 	char crap;
 	file.open("supermarkets.txt");
 	if(file.is_open()){
@@ -131,7 +133,7 @@ void readClientsFile()
 	cout << "Trying to read clients.txt File ..........";
 	ifstream file;
 	string line, data, name;
-	int nodeId;
+	long long int nodeId;
 	char crap = ';';
 	file.open("clients.txt");
 	if(file.is_open()){

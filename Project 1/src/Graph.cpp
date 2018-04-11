@@ -9,11 +9,16 @@
 
 
 /*VERTEX*/
-Vertex::Vertex(int in,double lon,double lat): info(in)  {
+Vertex::Vertex(long long int in,double lat,double lon,int index): info(in)  {
 	this->lat=lat;
 	this->lon=lon;
 	this->dist=INF;
 	this->indegree=0;
+	this->index=index;
+}
+
+int Vertex::getIndex(){
+	return index;
 }
 
 bool Vertex::operator<(Vertex & vertex) const {
@@ -26,7 +31,7 @@ Vertex * Vertex::getPrevious(){
 }
 
 
-int Vertex::getInfo(){
+long long int Vertex::getInfo(){
 	return info;
 }
 
@@ -51,7 +56,7 @@ double Vertex::getDist(){
 	return this->dist;
 }
 
-Edge Vertex::findEdgeTo(const int &dest){
+Edge Vertex::findEdgeTo(const long long int &dest){
 	for(auto it:adj){
 		if(dest==it.dest->getInfo())
 			return it;
@@ -103,7 +108,7 @@ int Graph::getNumVertex() const {
  * Auxiliary function to find a vertex with a given content.
  */
 
-Vertex * Graph::findVertex(const int &in) const {
+Vertex * Graph::findVertex(const long long int &in) const {
 	for (auto v : vertexSet)
 		if (v->info == in)
 			return v;
@@ -115,10 +120,10 @@ Vertex * Graph::findVertex(const int &in) const {
  *  Returns true if successful, and false if a vertex with that content already exists.
  */
 
-bool Graph::addVertex(const int &in,double lat,double lon) {
+bool Graph::addVertex(const long long int &in,double lat,double lon,int index) {
 	if ( findVertex(in) != NULL)
 		return false;
-	vertexSet.push_back(new Vertex(in,lat,lon));
+	vertexSet.push_back(new Vertex(in,lat,lon,index));
 	return true;
 }
 
@@ -128,7 +133,7 @@ bool Graph::addVertex(const int &in,double lat,double lon) {
  * Returns true if successful, and false if the source or destination vertex does not exist.
  */
 
-bool Graph::addEdge(const int &sourc, const int &dest, double w,bool oneway) {
+bool Graph::addEdge(const long long int &sourc, const long long int &dest, double w,bool oneway) {
 	auto v1 = findVertex(sourc);
 	auto v2 = findVertex(dest);
 	if (v1 == NULL || v2 == NULL)
@@ -140,7 +145,7 @@ bool Graph::addEdge(const int &sourc, const int &dest, double w,bool oneway) {
 }
 
 
-Edge Graph::findEdge(const int &sourc,const int &dest){
+Edge Graph::findEdge(const long long int &sourc,const long long int &dest){
 	auto v1 = findVertex(sourc);
 	return (v1->findEdgeTo(dest));
 
@@ -161,7 +166,7 @@ vector<Vertex *> Graph::getNodes(){
  * Returns true if successful, and false if such edge does not exist.
  */
 
-bool Graph::removeEdge(const int &sourc, const int &dest) {
+bool Graph::removeEdge(const long long int &sourc, const long long int &dest) {
 	auto v1 = findVertex(sourc);
 	auto v2 = findVertex(dest);
 	if (v1 == NULL || v2 == NULL)
@@ -175,7 +180,7 @@ bool Graph::removeEdge(const int &sourc, const int &dest) {
  *  Returns true if successful, and false if such vertex does not exist.
  */
 
-bool Graph::removeVertex(const int &in) {
+bool Graph::removeVertex(const long long int &in) {
 	for (auto it = vertexSet.begin(); it != vertexSet.end(); it++)
 		if ((*it)->info  == in) {
 			auto v = *it;
@@ -198,7 +203,7 @@ source shortest path data (path, dist).
 source shortest path algorithms.
 */
 
-Vertex * Graph::initSingleSource(const int &origin) {
+Vertex * Graph::initSingleSource(const long long int &origin) {
 	for(auto v : vertexSet) {
 		v->dist = INF;
 		v->path =nullptr;
@@ -231,7 +236,7 @@ bool Graph::relax(Vertex *v, Vertex *w, double weight) {
 * Dijkstra algorithm.
 */
 
-void Graph::dijkstraShortestPath(const int &origin) {
+void Graph::dijkstraShortestPath(const long long int &origin) {
 	auto s = initSingleSource(origin);
 	MutablePriorityQueue<Vertex> q;
 	q.insert(s);
@@ -256,9 +261,9 @@ void Graph::dijkstraShortestPath(const int &origin) {
  */
 
 
-vector<Vertex*> Graph::getPath(const int &origin, const int &dest) const {
+vector<Vertex*> Graph::getPath(const long long int &origin, const long long int &dest) const {
 	vector<Vertex*> res;
-		int inf=dest;
+		long long int inf=dest;
 		while(inf!=origin){
 			res.push_back(this->findVertex(inf));
 			inf=this->findVertex(inf)->path->info;

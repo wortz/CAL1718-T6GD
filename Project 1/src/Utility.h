@@ -10,12 +10,12 @@
 
 #define PI 3.14159265
 #define earthRadius (6371.0*1000.0)
-#define Height	1003
-#define Width 784
-#define maxlat 41.1589000
-#define maxlon -8.6012000
-#define minlat 41.1492000
-#define minlon -8.6230000
+#define Height 451
+#define Width 766
+#define maxlat 41.7772
+#define maxlon -7.3523
+#define minlat 41.7005
+#define minlon -7.5267
 
 #include <math.h>
 #include "Graph.h"

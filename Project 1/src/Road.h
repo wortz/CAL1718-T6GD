@@ -9,11 +9,13 @@
 using namespace std;
 
 class Road {
-	int id;
+	long long int id;
 	string name;
 	bool oneway;
+	long long source;
+	long long dest;
 public:
-	Road(int id,string name,bool oneway);
+	Road(long long int id,string name,bool oneway);
 	int getId();
 	string getName();
 	bool isOneway();

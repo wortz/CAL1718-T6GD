@@ -13,7 +13,7 @@
 #include <algorithm>
 #include "MutablePriorityQueue.h"
 
-using namespace std;
+
 
 class Edge;
 class Graph;
@@ -26,25 +26,27 @@ class Graph;
 
 
 class Vertex {
-	int info;                // contents
+	long long int info;                // contents
 	double lon,lat;		   //coordinates in earthsystem
 	vector<Edge > adj;  // list of outgoing edges
 	int queueIndex = 0; 	// required by MutablePriorityQueue
 	int indegree;          // auxiliary field used by topsort
 	double dist;
 	Vertex *path = NULL;
+	int index;
 
 	void addEdge(Vertex *d, double w,bool oneway);
 	bool removeEdgeTo(Vertex *d);
 public:
-	int getInfo();
+	long long int getInfo();
 	bool operator<(Vertex & vertex) const; // // required by MutablePriorityQueue
 	double getLon();
+	int getIndex();
 	double getLat();
 	double getDist();
-	Edge findEdgeTo(const int &dest);
+	Edge findEdgeTo(const long long int &dest);
 	Vertex * getPrevious();
-	Vertex(int in,double lat,double lon);
+	Vertex(long long int in,double lat,double lon,int index);
 	friend class Graph;
 	friend class MutablePriorityQueue<Vertex>;
 };
@@ -70,18 +72,18 @@ class Graph {
 
 
 public:
-	Vertex *findVertex(const int &in) const;
+	Vertex *findVertex(const long long int &in) const;
 	int getNumVertex() const;
-	bool addVertex(const int &in,double lat,double lon);
-	bool removeVertex(const int &in);
-	bool addEdge(const int &sourc, const int &dest, double w,bool oneway);
-	bool removeEdge(const int &sourc, const int &dest);
-	vector<Vertex*> getPath(const int &origin, const int &dest) const;
-	void dijkstraShortestPath(const int &s);
+	bool addVertex(const long long int &in,double lat,double lon,int index);
+	bool removeVertex(const long long int &in);
+	bool addEdge(const long long int &sourc, const long long int &dest, double w,bool oneway);
+	bool removeEdge(const long long int &sourc, const long long int &dest);
+	vector<Vertex*> getPath(const long long int &origin, const long long int &dest) const;
+	void dijkstraShortestPath(const long long int &s);
 	bool relax(Vertex *v, Vertex *w, double weight);
-	Vertex * initSingleSource(const int &origin);
+	Vertex * initSingleSource(const long long int &origin);
 	vector<Vertex *> getNodes();
-	Edge findEdge(const int &sourc,const int &dest);
+	Edge findEdge(const long long int &sourc,const long long int &dest);
 };
 
 /****************** Provided constructors and functions ********************/

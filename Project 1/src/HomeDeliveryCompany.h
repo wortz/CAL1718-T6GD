@@ -23,17 +23,17 @@ class HomeDeliveryCompany {
   void reworkOrganization();
   bool addClientToSupermarket(Client * c);
   public:
-  bool isAvailable(int node);
+  bool isAvailable(long long int node);
   HomeDeliveryCompany();
   void setGraph(Graph * graph);
   bool addClient(Client * c);
   void addRoad(Road* r);
   void addSupermarket(Supermarket* s);
   void coutNodesAvailable();
-  Road * getRoad(int id);
+  Road * getRoad(long long int id);
   Graph * getGraph();
   Supermarket* findSuper(int id);
-  bool removeClient(int nodeId);
+  bool removeClient(long long int nodeId);
   bool removeSupermarket(int id);
   void coutClients();
   void coutSupermarkets();

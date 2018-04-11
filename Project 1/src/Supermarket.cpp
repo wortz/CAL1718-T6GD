@@ -39,7 +39,7 @@ bool Supermarket::removeClient(Client * c){
 	return false;
 }
 
-int Supermarket::closestClient() {
+long long int Supermarket::closestClient() {
 	int distmin = -1;
 	Client * c;
 	for (auto client : clients) {
@@ -62,3 +62,5 @@ void Supermarket::resetAllVisited(){
 	for(auto it:clients)
 		it->setVisited(false);
 }
+
+

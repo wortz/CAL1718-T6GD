@@ -6,7 +6,7 @@
 
 using namespace std;
 
-Road::Road(int id,string name,bool oneway) : id(id), name(name), oneway(oneway)  {}
+Road::Road(long long int id,string name,bool oneway) : id(id), name(name), oneway(oneway)  {}
 
 int Road::getId(){
 	return this->id;
