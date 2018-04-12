@@ -106,8 +106,11 @@ void returnmenu() {
 			for (unsigned int j = 0; j < 10; j++)
 				cout << "\n\n\n\n\n";
 			mainMenu();
+			return;
 		}
 	}
+	saveSupermarketsFile();
+	saveClientsFile();
 }
 
 	void addClient() {
@@ -117,16 +120,14 @@ void returnmenu() {
 	cout << "\n\n";
 	cout << "Insira o ID do Vertice desejado, para adicionar cliente:\n";
 	cin >> info;
-	cin.ignore();
 	Graph * g = company->getGraph();
 	Vertex * v = g->findVertex(info);
 	string name;
-	cin.clear();
 	if (v != NULL) {
 		if (company->isAvailable(info)) { // alterar isavailablre arguments
 			cout << "\nVertice livre! \nInsira agora o nome do Cliente a acrescentar:\n";
-			getline(cin, name);
 			cin.ignore();
+			getline(cin, name);
 			Client * c = new Client(v, name);
 			if(company->addClient(c));
 		}
@@ -138,12 +139,12 @@ void returnmenu() {
 
 void removeClient(){
 	long long int info;
+	printClients();
 	cout << "Insira o ID do Vertice desejado, para remover cliente:\n";
 	cin >> info;
-	cin.clear();
 	Graph * g = company->getGraph();
 	Vertex * v = g->findVertex(info);
-	if (v == NULL) {
+	if (v != NULL) {
 		if (!company->isAvailable(info)) { // alterar isavailablre arguments to int in
 			company->removeClient(info);
 			cout << "\nVertice com ID inserido liberado!\n";
@@ -167,12 +168,11 @@ void addSupermarket(){
 	cout << "\n\n";
 	cout << "Insira o ID do Vertice desejado, para adicionar supermercado:\n";
 	cin >> info;
-	cin.clear();
 	Graph * g = company->getGraph();
 	Vertex * v = g->findVertex(info);
-	if (v == NULL) {
+	if (v != NULL) {
 		if (company->isAvailable(info)) { // alterar isavailablre arguments
-			cout << "\n Vertice livre! \nInsira agora o nome do Cliente a acrescentar:\n";
+			cout << "\nVertice livre! \n";
 			Supermarket * s = new Supermarket(v);
 			company->addSupermarket(s);
 		}
@@ -190,7 +190,6 @@ void removerSupermarket() {
 	cout << endl;
 	cout << "Insira o ID do Vertice desejado, para remover supermercado:\n";
 	cin >> id;
-	cin.ignore();
 	if (company->findSuper(id) != NULL) {
 
 		company->removeSupermarket(id);
@@ -204,11 +203,12 @@ void printSupermarkets(){
 }
 
 void printClientsSupermarket(){
-	int idoption;
+	int idoption=0;
 	printSupermarkets();
+	while(company->findSuper(idoption)==NULL){
 	cout << "\n" << "Insert id of Supermarket you want:\n";
 	cin >> idoption;
-	cin.ignore();
+	}
 	cout << company->findSuper(idoption);
 }
 
@@ -219,11 +219,11 @@ void printGraph(){
 	int sup=0;
 	while(company->findSuper(sup)==NULL){
 			cin>> sup;
-			cin.ignore();
 	}
 	GraphViewer *gv = new GraphViewer(Width,Height, false);
 	gv->setBackground("background.png"); //from 1.b)
 	gv->createWindow(Width,Height);
+	gv->defineVertexSize(0.5);
 	gv->defineEdgeColor("black");
 	gv->defineEdgeCurved(false);
 	auto vetor=company->createRote(sup);
@@ -253,10 +253,29 @@ void printGraph(){
 			gv->addEdge(u,index1,index2,EdgeType::UNDIRECTED);
 			u++;
 	}
-	gv->defineVertexSize(0.5);
 	gv->rearrange();
-	getchar();
-	gv->closeWindow();
+	returnmenu(gv);
+}
+
+void returnmenu(GraphViewer * gv){
+	char c;
+		while (true) {
+			cout << "\n\n\nDo you wish to return to main menu? (y/n (EXIT) )\n";
+			cin >> c;
+			if (c == 'n'){
+				gv->closeWindow();
+				saveSupermarketsFile();
+				saveClientsFile();
+				break;
+			}
+			if (c == 'y') {
+					gv->closeWindow();
+					for (unsigned int j = 0; j < 10; j++)
+					cout << "\n\n\n\n\n";
+				mainMenu();
+				break;
+			}
+		}
 }
 
 
@@ -273,7 +292,6 @@ void seeDistTime(){
 		int sup=0;
 		while(company->findSuper(sup)==NULL){
 				cin>> sup;
-				cin.ignore();
 		}
 	vector<float> v= company->calculateDistTime(sup);
 	int mins, hrs;

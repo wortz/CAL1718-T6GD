@@ -58,6 +58,10 @@ unsigned int Supermarket::getNrClients(){
 	return clients.size();
 }
 
+void Supermarket::eraseClients(){
+	clients.clear();
+}
+
 void Supermarket::resetAllVisited(){
 	for(auto it:clients)
 		it->setVisited(false);

@@ -25,6 +25,7 @@ public:
 	long long int closestClient();
 	unsigned int getNrClients();
 	void resetAllVisited();
+	void eraseClients();
 	friend ostream& operator<<(ostream& os, const Supermarket * s){
 		for(auto it:s->clients){
 			os << "Client " << it->getName() << " located at node " << it->getNodeId() << endl;

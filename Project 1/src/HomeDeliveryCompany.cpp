@@ -60,6 +60,9 @@ void HomeDeliveryCompany::addSupermarket(Supermarket* s){
 }
 
 void HomeDeliveryCompany::reworkOrganization(){
+	for(auto s:supermarkets){
+		s->eraseClients();
+	}
 	for(auto v:clients){
 		addClientToSupermarket(v);
 	}

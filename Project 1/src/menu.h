@@ -30,5 +30,6 @@ void printGraph();
 void closeWindow();
 void lines();
 void seeDistTime();
+void returnmenu(GraphViewer * gv);
 
 #endif /* MENU_H_ */
