@@ -81,11 +81,6 @@ bool HomeDeliveryCompany::addClientToSupermarket(Client * c){
 		if(n->getPrevious()==NULL && notConnected){
 			continue;
 		}
-		graph->dijkstraShortestPath(c->getNodeId());
-		auto s=v->getNode();
-		if(s->getPrevious()==NULL && notConnected){
-			continue;
-		}
 		if(d==-1){
 			d=n->getDist();
 			i=v;

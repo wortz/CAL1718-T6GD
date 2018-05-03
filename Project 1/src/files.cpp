@@ -178,7 +178,7 @@ void saveClientsFile(){
 void saveSupermarketsFile(){
 	cout << "Saving Supermarkets info to supermarkets.txt File ..........\n";
 	ofstream file;
-	file.open("clients.txt",fstream::out|fstream::trunc);
+	file.open("supermarkets.txt",fstream::out|fstream::trunc);
 	vector<Supermarket * > s =company->getSupermarkets();
 	for(unsigned int it=0; it< s.size();it++)
 	{
