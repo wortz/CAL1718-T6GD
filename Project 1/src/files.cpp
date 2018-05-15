@@ -106,17 +106,17 @@ void readSupermarketsFile()
 {
 	cout << "Trying to read supermarkets.txt File ..........";
 	ifstream file;
-	string line;
+	string line, cadeia;
 	long long int nodeId;
 	char crap;
 	file.open("supermarkets.txt");
 	if(file.is_open()){
 		while(getline(file,line)){
 			stringstream ss(line);
-			ss >> nodeId >> crap;
+			ss >> nodeId >> crap >> cadeia;
 			auto v=graph->findVertex(nodeId);
 			if(v!=NULL)
-				company->addSupermarket(new Supermarket(v));
+				company->addSupermarket(new Supermarket(v, cadeia));
 			else {
 				cout << "\nError the files supermarkets.txt and nodes.txt do not match.";
 				break;
@@ -178,11 +178,11 @@ void saveClientsFile(){
 void saveSupermarketsFile(){
 	cout << "Saving Supermarkets info to supermarkets.txt File ..........\n";
 	ofstream file;
-	file.open("clients.txt",fstream::out|fstream::trunc);
+	file.open("supermarkets.txt",fstream::out|fstream::trunc);
 	vector<Supermarket * > s =company->getSupermarkets();
 	for(unsigned int it=0; it< s.size();it++)
 	{
-		file<<s[it]->getNode()->getInfo()<<";";
+		file<<s[it]->getNode()->getInfo()<<";"<<s[it]->getCadeia();
 		if(it!=s.size()-1)
 			file<<"\n";
 	}

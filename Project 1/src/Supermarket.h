@@ -9,14 +9,16 @@
 #include <vector>
 #include "Graph.h"
 #include "Client.h"
+#include <string>
 
 
 class Supermarket {
 	Vertex * node;
 	vector<Client *> clients;
 	int id;
+	string cadeia;
 public:
-	Supermarket(Vertex* node);
+	Supermarket(Vertex* node, string cadeia);
 	void setId(int id);
 	void addClient(Client * client);
 	Vertex * getNode();
@@ -24,6 +26,7 @@ public:
 	bool removeClient(Client * c);
 	long long int closestClient();
 	unsigned int getNrClients();
+	string getCadeia();
 	void resetAllVisited();
 	void eraseClients();
 	friend ostream& operator<<(ostream& os, const Supermarket * s){

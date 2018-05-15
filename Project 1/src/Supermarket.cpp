@@ -9,9 +9,10 @@
 
 using namespace std;
 
-Supermarket::Supermarket(Vertex* node){
+Supermarket::Supermarket(Vertex* node, string cadeia){
 	this->node=node;
 	this->id=-1;
+	this->cadeia=cadeia;
 }
 
 void Supermarket::setId(int id){
@@ -65,6 +66,10 @@ void Supermarket::eraseClients(){
 void Supermarket::resetAllVisited(){
 	for(auto it:clients)
 		it->setVisited(false);
+}
+
+string Supermarket::getCadeia(){
+	return this->cadeia;
 }
 
 

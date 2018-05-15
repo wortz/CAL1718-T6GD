@@ -158,7 +158,7 @@ void HomeDeliveryCompany::coutClients(){
 
 void HomeDeliveryCompany::coutSupermarkets(){
 	for(auto it:supermarkets){
-		cout << "Supermarket number " << it->getId() << " located at node " << it->getNode()->getInfo() << endl;
+		cout << "Supermarket number " << it->getId()<< " located at node " << it->getNode()->getInfo() << " ("<< it->getCadeia()<<")"<< endl;
 	}
 }
 

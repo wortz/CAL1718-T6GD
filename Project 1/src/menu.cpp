@@ -26,14 +26,15 @@ void mainMenu(){
 			"See existent Supermarkets.",
 			"See clients atributed to a certain supermarket.",
 			"See routes.",
-			"See distance and time of routes."
+			"See distance and time of routes.",
+			"Search for a Supermarket (new)"
 		};
 
 		for (size_t i = 0; i <= options.size() - 1 ; i++) {
 			cout << " " << i+1 << " - ";
 			cout << options.at(i) << "\n";
 		}
-		cout << " 10 - EXIT\n";
+		cout << " 11 - EXIT\n";
 		cout << "\n" << "Chose an option: ";
 		cin.clear();
 		cin >> input;
@@ -84,6 +85,9 @@ void mainMenu(){
 			returnmenu();
 			return;
 		case 10:
+			//TODO: nova funcionalidade
+			break;
+		case 11:
 			cout<<"\n\n\n\nExiting.\n";
 			break;
 		default:
@@ -163,6 +167,7 @@ void printClients() {
 
 void addSupermarket(){
 	long long int info;
+	string cadeia;
 	cout << "Vertices livres:\n";
 	company->coutNodesAvailable();
 	cout << "\n\n";
@@ -173,7 +178,10 @@ void addSupermarket(){
 	if (v != NULL) {
 		if (company->isAvailable(info)) { // alterar isavailablre arguments
 			cout << "\nVertice livre! \n";
-			Supermarket * s = new Supermarket(v);
+			cout << "Insira a cadeia a que pertence o supermercado:\n";
+			cin.ignore();
+			getline(cin, cadeia);
+			Supermarket * s = new Supermarket(v, cadeia);
 			company->addSupermarket(s);
 		}
 		else {
