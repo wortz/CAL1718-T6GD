@@ -35,7 +35,9 @@ void mainMenu(){
 		}
 		cout << " 10 - EXIT\n";
 		cout << "\n" << "Chose an option: ";
+		cin.clear();
 		cin >> input;
+		cin.clear();
 		switch (input) {
 		case 1:
 			lines();
