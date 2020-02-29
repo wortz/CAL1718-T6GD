@@ -1,11 +1,11 @@
-﻿# CAL1718-T6GD
-Concepção e Análise de Algoritmos 2018, first project and second project .
+# CAL1718-T6GD
+Design and Analysis of Algorithms 2018, first project and second project .
 
-Tema 6: Supermercado ao domicílio
-Uma rede de supermercados deseja inovar e passa a permitir que os seus clientes realizem as suas compras de supermercado pela Internet, sendo depois as mesmas entregues no domicílio do cliente. Para rentabilizar o serviço, o supermercado tenta agrupar o maior número de compras numa única viagem, distribuindo as compras para os clientes nas suas respectivas moradas. 
-Elabore um sistema que permite ao supermercado avaliar diferentes estratégias de entregas ao domicílio. Os camiões poderão todos partir de um único supermercado, ou poderá haver vários supermercados a manterem o seu próprio veículo de entrega, procurando-se agrupar os clientes mais próximos de uma dada sucursal. 
+Theme 6: Supermarket at home
+A supermarket chain wants to innovate and allows its customers to shop for supermarket purchases over the Internet, and then they are delivered to the customer's home. To monetize the service, the supermarket tries to group the largest number of purchases in a single trip by distributing purchases to customers at their respective addresses. 
+Develop a system that allows the supermarket to evaluate different home delivery strategies. Lorries will all be able to leave a single supermarket, or there may be several supermarkets maintaining their own delivery vehicle, trying to group customers closest to a given branch.
 
-Avalie a conectividade do grafo, a fim de evitar que clientes sejam atendidos por supermercados para os quais não haverá itinerário possível. Para além de tentar-se minimizar o itinerário de distribuição das compras, pretende-se também realizar o maior número de entregas numa única viagem, com a condição de terem todas as compras de ser entregues no mesmo dia em que foram realizadas.
+Evaluate graph connectivity to prevent customers from being served by supermarkets for which there will be no possible itinerary. In addition to trying to minimize the itinerary of distribution of purchases, it is also intended to make the largest number of deliveries in a single trip, on the condition that they have all purchases to be delivered on the same day they were made.
 
-Considere a possibilidade de utilizar mapas reais, extraídos do OpenStreetMaps (www.openstreetmap.org), localizando, no mapa, as sucursais da rede de supermercados e as moradas dos respectivos clientes.
+Consider using real maps extracted from OpenStreetMaps (www.openstreetmap.org), locating the supermarket chain branches and the addresses of their customers on the map.
 
