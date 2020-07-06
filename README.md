@@ -2,7 +2,7 @@
 Projects developed for the CAL course unit.
 
 ### Project Infos
-* **Date:** 2rd Year, 2st Semester, 2018/2019
+* **Date:** 2rd Year, 2st Semester, 2017/2018
 * **Topic:** Projects For CAL
 * **Course:** Concepção e Análise de Algoritmos (CAL) | Algorithm Design and Analysis
 * **Course Link:** https://sigarra.up.pt/feup/en/UCURR_GERAL.FICHA_UC_VIEW?pv_ocorrencia_id=436441
