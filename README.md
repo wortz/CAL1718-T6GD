@@ -1,4 +1,14 @@
 # CAL1718-T6GD
+Projects developed for the CAL course unit.
+
+### Project Infos
+* **Date:** 2rd Year, 2st Semester, 2018/2019
+* **Topic:** Projects For CAL
+* **Course:** Concepção e Análise de Algoritmos (CAL) | Algorithm Design and Analysis
+* **Course Link:** https://sigarra.up.pt/feup/en/UCURR_GERAL.FICHA_UC_VIEW?pv_ocorrencia_id=436441
+* **In Collaboration With:** Francisco Friande ([ffriande](https://github.com/ffriande))  &&  Diogo Moreira ([DMoreira97](https://github.com/DMoreira97))
+
+
 Design and Analysis of Algorithms 2018, first project and second project .
 
 Theme 6: Supermarket at home
